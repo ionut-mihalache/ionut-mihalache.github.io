@@ -5,10 +5,6 @@ I like **Overwatch** so please buy the game so I can rank with friends. My favor
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ionut-mihalache/ionut-mihalache.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
 ### Contact
 
 Contact me on [facebook](https://www.facebook.com/ionut.mihalache.908/) to play games together.
