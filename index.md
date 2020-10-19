@@ -1,7 +1,7 @@
 ## Welcome to my bio page. I like to be named IoNut(just like you say the name of the pokemon oshawott :) )
 
 I like Overwatch so please buy the game so I can rank with friends.
-![Oshawott](https://pa1.narvii.com/6254/b5800370e00aabd499b4e3e31476c40bfc9c88af_hq.gif)
+![Oshawott](https://raw.githubusercontent.com/ionut-mihalache/ionut-mihalache.github.io/main/b5800370e00aabd499b4e3e31476c40bfc9c88af_hq.gif)
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
