@@ -1,6 +1,6 @@
 ## Welcome to my bio page. I like to be named IoNut(just like you say the name of the pokemon oshawott :) )
 
-I like Overwatch so please buy the game so I can rank with friends.
+I like Overwatch so please buy the game so I can rank with friends. My favorite summer game is pokemon, you guess which I play the most.
 ![Oshawott](https://raw.githubusercontent.com/ionut-mihalache/ionut-mihalache.github.io/main/b5800370e00aabd499b4e3e31476c40bfc9c88af_hq.gif)
 ### Markdown
 
@@ -30,6 +30,6 @@ For more details see [GitHub Flavored Markdown](https://guides.github.com/featur
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ionut-mihalache/ionut-mihalache.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
+### Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Contact me on [facebook](https://www.facebook.com/ionut.mihalache.908/) to play games together.
