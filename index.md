@@ -1,28 +1,7 @@
 ## Welcome to my bio page. I like to be named IoNut(just like you say the name of the pokemon oshawott :) )
 
-I like Overwatch so please buy the game so I can rank with friends. My favorite summer game is pokemon, you guess which I play the most.
+I like **Overwatch** so please buy the game so I can rank with friends. My favorite summer game is pokemon, you guess which I play the most.
 ![Oshawott](https://raw.githubusercontent.com/ionut-mihalache/ionut-mihalache.github.io/main/b5800370e00aabd499b4e3e31476c40bfc9c88af_hq.gif)
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
