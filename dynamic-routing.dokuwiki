@@ -1,0 +1,308 @@
+==== 00. [M][5p] Lucru cu biți ====
+
+  * Reprezentarea adreselor IP se face în grupuri de câte 8 biți. Drept pentru care, vă sunt necesare cunoștințe bune de lucru în binar.
+  *Atunci când faceți reprezentarea în binar a unui număr cel mai bine este să îl descompuneți în puteri ale lui 2. De exemplu:
+    * ''17 = 16 + 1 = 2<sup>4</sup> + 2<sup>0</sup>''; rezultă reprezentarea (în binar pe 8 biți) ''00010001''
+    * ''173 = 128 + 32 + 8 + 4 + 1 = 2<sup>7</sup> + 2<sup>5</sup> + 2<sup>3</sup> + 2<sup>2</sup> + 2<sup>0</sup>''; rezultă reprezentarea (în binar pe 8 biți) ''10101101''
+
+  * Sunt utile abilitățile de a face rapid reprezentarea rapidă a numerelor care se găsesc în jurul puterilor lui 2. De exemplu:
+    * pentru ''64 = 01000000''
+      * 63 este 64-1, un număr cu mulți biți de 1 (6 biți): ''00111111''
+      * 62 este 63-1, un număr cu mulți biți de 1 mai puțin ultimul (5 biți de 1 și un bit de 0): ''00111110''
+      * 65 este 64+1, se adaugă ultimul bit de 1 la reprezentarea lui 64: ''01000001''
+
+
+=== Exerciții===
+
+  * Realizați reprezentarea binară pe 8 biți a următoarelor numere:
+    * 127
+    * 80
+    * 72
+    * 254
+
+<hidden>
+<solution>
+  * 127 = 01111111
+  * 80 = 01010000
+  * 72 = 01001000
+  * 254 = 11111110
+</solution>
+</hidden>
+
+==== 01. [M][5p] Adresă IP și mască de rețea ====
+
+  * Ne propunem să sistematizăm noțiunile de adresă IP, mască de rețea, adresă de rețea și adresă de broadcast.
+  * Pentru asigurarea conectivității avem nevoie de o adresă de nivel 3, numită și adresă IP. Pe fiecare echipament cu suport de nivel 3 (stații, rutere, switch-uri layer 3) avem nevoie de adrese IP.
+
+<hidden>
+Arătați, la tablă, formatul adresei IP și cele două formate de mască.  Precizați că masca de rețea împarte adresa IP într-o parte de rețea și o parte de stație (//host//) și că acest format de adresare ierarhică este util în rutare: localizezi rețeaua nu stația.
+
+Folosiți adresa IP 192.168.100.200/24 și arătați cum se obține adresa de rețea și adresa de broadcast. Cel mai simplu e să le aratați unde se termină partea de rețea și unde începe partea de stație; apoi le arătați că în partea de stație se pun biți de 0 pentru adresa de rețea și că se pun biți de 1 pentru adresa de broadcast.
+
+Aratați-le apoi pe exemplul 172.16.200.100/20, indicat mai jos.
+</hidden>
+
+----
+
+  * În cazul unei adrese IP, vom configura, tot timpul, următoarele:
+    * **adresa IP** - 4 grupuri a câte 8 biți((pentru IPv4)). Exemplu: ''192.168.100.200''((valoarea maximă pentru fiecare grup este 255 = ''2<sup>8</sup>-1''))
+    * **masca de rețea** (subnet mask) - 4 grupuri a câte 8 biți, cu proprietatea că se începe cu bitul 1, iar toți biții de 1 sunt consecutivi, alternanța 0/1 fiind interzisă. De exemplu ''11111111.00000000.00000000.00000000'' este o mască de rețea validă, iar ''11000001.00000000.00000000.0000000'' este o mască nevalidă. Pentru a ușura citirea măștii acestea se scrie în zecimal, similar  adresei IP: ''11111111.00000000.00000000.00000000'' = ''255.0.0.0''. Datorită proprietății speciale în care biții de 1 sunt consecutivi o altă formă în care veți mai găsi specificată masca de rețea este forma prefixată: ''/X'', unde X reprezintă numărul de biți de 1: ''11111111.00000000.00000000.00000000'' = ''255.0.0.0'' = ''/8''.
+
+  * Pornind de la adresa IP și masca de rețea putem identifica două alte proprietăți ale unei rețele (pentru exemplificare vom folosi adresa IP 192.168.100.200/255.255.255.0):
+    * **adresa de rețea** - se obține făcând **ȘI-logic** între biții adresei IP și biții măștii de rețea
+      * ''192.168.100.200 & 255.255.255.0 = **192.168.100.0**''
+    * **adresa de broadcast** - se obține făcând **SAU-logic** între biții adresei IP și biții din complementul măștii de rețea (complementul se obține inversând valoarea biților de pe fiecare poziție)
+      * ''192.168.100.200 | 0.0.0.255 = **192.168.100.255**''
+
+----
+
+  * Atunci când cunoaștem adresa IP și masca de rețea și vrem să obținem adresa de rețea și adresa de broadcast, este util să folosim masca de rețea pentru a împărți adresa IP în două:
+    * O **parte de subrețea**, care se întinde pe câți biți de 1 are masca de rețea. E vorba de 24 de biți, pentru o mască /24 (sau 255.255.255.0) sau 16 biți pentru o mască /16 (sau 255.255.0.0) sau 20 de biți pentru o mască /20 (sau 255.255.240.0).
+    * O **parte de stație** (sau parte de host) care se întinde pe restul spațiului (32 - numărul de biți de 1 ai măștii de rețea). E vorba de 8 biți pentru o mască /24 (32-24 = 8) sau de 16 biți pentru o mască /16 (32-16 = 16) sau de 12 biți pentru o mască /20 (32-20 = 12).
+  * Pe această împărțire vom obține aceeași pentru adresa 192.168.100.200/24 aceleași valori precum cele calculate mai sus, lucru reflectat și în figura de mai jos.
+
+{{ :rl:labs:03:contents:rl_lab-03_impartire-adresa-ip.png?600 |Împărțire adresă IP în parte de rețea și parte de stație}}
+----
+
+  * Să obținem adresa de rețea și adresa de broadcast pentru adresa ''172.16.200.100/20''.
+  * Transformăm adresa într-o adresă hibridă punând biți de 0 acolo unde se găsește masca de rețea: al treilea octet din cei patru ai adresei IP: ''172.16.1100|1000.xxxxxxxx''. 
+  * Am folosit operatorul | (pipe) pentru a separa **partea de rețea** (primii 20 de biți, aferenți rețelei) de **partea de stație (//host//)** (ceilalți biți (32-20 = 12 biți) aferenți stației). Nu sunt relevanți pentru calculul nostru biții ultimului octet așa că am pus ''xxxxxxxx'' în locul lor.
+
+  * Adresa de rețea are **toți biții de stație puși pe 0**, deci va fi ''172.16.1100|0000.00000000''. Rezultă adresa de rețea ''172.16.192.0/20''.
+  * Adresa de broadcast are **toți biții de stație puși pe 1**, deci va fi ''172.16.1100|1111.11111111''. Rezultă adresa de broadcast ''172.16.207.255/20''.
+
+==== 02. [M][10p] Calcul adresă de rețea și adresă de broadcast ====
+
+  * Găsiți adresa de rețea și adresa de broadcast pentru următoarele tupluri de adrese IP și măști de rețea:
+    - ''192.168.5.14/24''
+    - ''192.168.5.14/25''
+    - ''10.10.10.0/8''
+    - ''172.16.4.254/22''
+
+<hidden>
+<solution>
+Prima valoare din paranteză este adresa de rețea, iar a doua este adresa de broadcast:
+  - 192.168.5.14/24 (192.168.5.0, 192.168.5.255); 
+  - 192.168.5.14/25 (192.168.5.0, 192.168.5.127); 
+  - 10.10.10.10/8 (10.0.0.0, 10.255.255.255); 
+  - 172.16.4.254/22 (172.16.4.0, 172.16.7.255)
+</solution>
+</hidden>
+
+==== 03. [M][5p] Utilitate mască de rețea ====
+
+**Topologie**: {{:rl:labs:03:contents:rl_lab-03_utilitatea_mastii1.pkt|download}}
+
+  * Topologia conține 3 calculatoare legate printr-un switch și au configurate adresele IP. După ce toate legăturile devin active (toate beculețele devin verzi), trimiteți câte un pachet între oricare două stații.
+  * Observați că nu există conectivitate între stația ''PC1'' și celelalte două stații (''PC0'' si ''PC2'').
+
+  * Vizualizați adresele IP și măștile de rețea configurate pe fiecare din stații. 
+  * Motivul pentru care nu funcționează transmiterea pachetelor de la ''PC1'' este pentru că stația ''PC1'' se află în altă rețea față de stațiile ''PC0'' și ''PC2''.
+  * Deși aparent este în aceeași rețea, diferă masca de rețea. Vom demonstra acest lucru calculând adresele de rețea:
+    * ''PC0'': ''172.16.10.10 & 255.255.0.0 (/16)'' = ''172.16.0.0''
+    * ''PC1'': ''172.16.20.20 & 255.255.255.0 (/24)'' = ''172.16.20.0''
+    * ''PC2'': ''172.16.30.30 & 255.255.0.0 (/16)'' = ''172.16.0.0''
+  * Se observă că stațiile ''PC0'' și ''PC2'' fac parte din aceeași rețea, pe când ''PC1'' se află în altă rețea, lucru indicat de masca de rețea.
+
+<note>
+Apartenența unei adrese IP la o rețea se poate decide doar folosind atât adresa IP cât și masca de rețea. O configurație fără mască de rețea este incompletă.
+</note>
+
+==== 04. [M][5p] Număr de stații în rețea ====
+
+  * Masca de rețea face separația între partea de rețea și partea de stație. Numărul de biți pentru partea de stație reflectă adresele IP posibile pentru stații.
+  * Două dintre aceste adrese, însă, nu sunt asignabile stațiilor (nu pot fi configurate pe stații). Este vorba de prima adresă IP a spațiului și ultima adresă IP a spațiului posibil.
+  * Prima adresă IP a spațiului de adrese conține doar biți de 0 pentru partea de host și este **adresa de rețea**.
+  * Ultima adresă IP a spațiului de adrese conține doar biți de 1 pentru partea de host și este **adresa de broadcast**.
+
+  * Dacă avem masca de rețea /24, adică 8 biți (32-24) pentru partea de stație, vom avea un spațiul posibil de ''2<sup>8</sup> = 256'' adrese. Din aceste adrese 2 nu sunt folosibile (adresa de rețea și adresa de broadcast) și vom avea, așadar 254 de adrese asignabile.
+  * În general, dacă avem ''N'' biți alocați pentru partea de stație, vom avea ''2<sup>N</sup>-2'' adrese asignabile.
+
+  * Răspundeți la întrebările de mai jos:
+    - Câte adrese asignabile se găsesc în rețeaua ''10.10.0.0/16''?
+    - Câte adrese asignabile se găsesc în rețeaua ''15.16.192.0/20''?
+    - Câte adrese asignabile se găsesc în rețeaua ''1.2.3.4/30''?
+    - Care este masca de rețea a celei mai mici rețele care să cuprindă 25 de adrese asignabile?
+    - Care este masca de rețea a celei mai mici rețele care să cuprindă 62 de adrese asignabile?
+    - Care este masca de rețea a celei mai mici rețele care să cuprindă 127 de adrese asignabile?
+
+<hidden>
+<solution>
+  - 2<sup>16</sup>-2
+  - 2<sup>12</sup>-2
+  - 2
+  - /27
+  - /26
+  - /24
+</solution>
+</hidden>
+
+==== 05. [M][5p] Prezentare subnetare ====
+
+  * În rețele mari, se pornește de la un spațiu de adresă oferit de o autoritate și apoi se fac subrețele la acest spațiu. Subrețelele vor acoperi zone/departamente diferite. Procesul de împărțire în subrețele se cheamă //subnetting// sau subnetare.
+  * În forma simplă, se împart în subrețele egale, de dimensiune fixă.
+
+<hidden>
+Porniți de la o rețea ''192.168.0.0/16'' și creați subrețele ''192.168.0.0/24''.
+
+Precizați câte rețele puteți crea (''2<sup>8</sup> = 256'') și câte stații vor fi disponibile în fiecare subrețea (''2<sup>8</sup>-2 = 254'').
+
+Precizați cum se obțin subrețelele: ''192.168.0.0/24'', ''192.168.1.0/24'', ''192.168.2.0/24'' etc. Apoi precizați care este adresa de broadcast, prima adresă și ultima adresă din fiecare subrețea.
+</hidden>
+
+=== Tutorial===
+
+  * Vom realiza subnetarea rețelei ''78.78.32.0/22'' în 4 subrețele
+  * În forma binară hibridă, adresa rețelei mari este ''78.78.001000|00.00000000/22''. Am folosit caracterul | (pipe) pentru a separa partea de rețea de partea de host.
+  * Avem 4 subrețele deci avem nevoie de 2 biți suplimentari pentru indicarea rețelei: 00, 01, 10, 11. Înseamnă că subrețelele vor avea masca /22 + 2 biți =/24. Adică vor avea ''2<sup>8</sup>-2 = 254'' stații fiecare.
+
+  * Cele 4 subrețele vor avea, respectiv adresele:
+    * ''78.78.001000**00**.00000000/24'' = ''78.78.32.0/24''
+    * ''78.78.001000**01**.00000000/24'' = ''78.78.33.0/24''
+    * ''78.78.001000**10**.00000000/24'' = ''78.78.34.0/24''
+    * ''78.78.001000**11**.00000000/24'' = ''78.78.35.0/24''
+
+  * Adresa de broadcast a fiecărei subrețele va fi, respectiv:
+    * ''78.78.00100000.**11111111**/24'' = ''78.78.32.255/24''
+    * ''78.78.00100001.**11111111**/24'' = ''78.78.33.255/24''
+    * ''78.78.00100010.**11111111**/24'' = ''78.78.34.255/24''
+    * ''78.78.00100011.**11111111**/24'' = ''78.78.35.255/24''
+
+  * Prima adresă asignabilă din cadrul fiecărei subrețele va fi, respectiv:
+    * ''78.78.00100000.**00000001**/24'' = ''78.78.32.1/24''
+    * ''78.78.00100001.**00000001**/24'' = ''78.78.33.1/24''
+    * ''78.78.00100010.**00000001**/24'' = ''78.78.34.1/24''
+    * ''78.78.00100011.**00000001**/24'' = ''78.78.35.1/24''
+
+  * Ultima adresă asignabilă din cadrul fiecărei subrețele va fi, respectiv:
+    * ''78.78.00100000.**11111110**/24'' = ''78.78.32.254/24''
+    * ''78.78.00100001.**11111110**/24'' = ''78.78.33.254/24''
+    * ''78.78.00100010.**11111110**/24'' = ''78.78.34.254/24''
+    * ''78.78.00100011.**11111110**/24'' = ''78.78.35.254/24''
+
+==== 06. [M][10p] Întrebări de subnetare ====
+
+  - Câte adrese asignabile (care pot fi asociate unei stații) se găsesc într-o rețea cu masca /23?
+  - Câți biți sunt necesari pentru partea de subrețea dacă dorim să creăm 7 subrețele cu cât mai multe stații?
+  - Câți biți sunt necesari pentru partea de stație dacă dorim să creăm cât mai multe rețele cu 7 stații?
+  - Pornim de la o rețea /22. Care va fi masca noilor subrețele dacă dorim să creăm 6 subrețele de dimensiune egală cu cât mai multe stații?
+  - Pornim de la o rețea /22. Care va fi masca noilor subrețele dacă dorim să creăm cât mai multe subrețele cu 27 de stații?
+  - Dați exemplu de două măști de (sub)rețea pentru care adresa ''78.78.78.159'' este adresă de broadcast și două măști de (sub)rețea pentru care adresa ''78.78.78.159'' este adresă de stație.
+
+<hidden>
+<solution>
+  - 2<sup>9</sup>-2
+  - 3
+  - 4
+  - /25
+  - /27
+  - De broadcast: /27, /28, /29, /30. De statie: /24, /25, /26
+</solution>
+</hidden>
+
+==== 07. [M][10p] Subnetare ====
+
+  * O firmă are la dispoziție un spațiu de adrese ''/24'' și un ruter cu mai multe interfețe.
+  * Ruterul distribuie spațiul de adrese în 4 subrețele cu număr egal de stații. 
+  * Stabiliți adresa de rețea și adresa de broadcast a fiecărei subrețele, precum și prima adresă asignabilă și ultima adresă asignabilă pentru fiecare subrețea:
+    - ''17.18.19.0/24''
+
+
+<hidden>
+<solution>
+  * 17.18.19.0/26
+  * 17.18.19.64/26
+  * 17.18.19.128/26
+  * 17.18.19.192/26
+</solution>
+</hidden>
+
+==== 08. [M][10p] Subnetare avansată ====
+
+  * O firmă are la dispoziție un spațiu de adrese ''/22'' și un ruter cu mai multe interfețe.
+  * Ruterul distribuie spațiul de adrese în 6 subrețele cu număr egal de stații. 
+  * Stabiliți adresa de rețea a fiecărei subrețele și adresa ultimei adrese asignabile pentru fiecare subrețea.
+    - ''17.18.16.0/22''
+
+
+<hidden>
+<solution>
+  * 17.18.16.0/25
+  * 17.18.16.128/25
+  * 17.18.17.0/25
+  * 17.18.17.128/25
+  * 17.18.18.0/25
+  * 17.18.18.128/25
+</solution>
+</hidden>
+
+==== 09. [M][5p] Prezentare VLSM ====
+
+  * Să presupunem că un institut primește un spațiu ''17.18.19.0/24''. Decizia organizatorică dictează ca acel spațiu să fie împărțit în trei subrețele corespunzătoare pentru trei departamente:
+  - A: o subrețea cu un număr de 100 de stații
+  - B: o subrețea cu 60 de stații
+  - C: o subrețea cu 50 de stații
+
+<hidden>
+Prezentați ce se întâmplă în cazul subnetting-ului cu subrețele de dimensiune fixă și faptul că nu încap rețelele. Apoi arătați cum faceți subnetting folosind VLSM, așa cum se descrie mai jos.
+</hidden>
+
+----
+
+  * Când facem subnetting folosind VLSM, sortăm în ordine descrescătoare subrețelele după numărul de stații. Pornim de la subrețeaua cea mai mare și apoi continuăm, pas cu pas, la rețelele mai mici.
+  * Prima subrețea are 100 de stații, deci are nevoie de 7 biți pentru partea de host, adică de o mască ''/25''. Împărțim rețeaua mare în două subrețele:
+    - ''17.18.19.0/25''
+    - ''17.18.19.128/25''
+  * Prima subrețea o alocăm primul departament: ''A'' - ''17.18.19.0/25''.
+
+  * A doua subrețea (''17.18.19.128/25'') o împărțim în continuare.
+  * Trebuie să folosim spațiul rămas pentru celelalte două subrețele (B și C) cu câte 60, respectiv 50 de stații. 
+  * Avem nevoie de 6 biți pentru partea de host a fiecărei subrețele, adică de o mască ''/26''. Împărțim noua subrețea în două subrețele:
+    - ''17.18.19.128/26''
+    - ''17.18.19.192/26''
+  * Alocăm fiecare dintre cele două subrețele rezultate celor două departamente: ''B'' - ''17.18.19.128/26'' și ''C'' - ''17.18.19.192/26''.
+  * Întrucât spațiul inițial a fost împărțit în subrețele cu mască diferită, numim acest process //Variable Length Subnet Mask// (VLSM).
+
+  * Procesul este reprezentat grafic în imaginea de mai jos:
+
+{{ :rl:labs:03:contents:rl_lab-03_proces-subnetare-vlsm.png?600 |Proces de subnetare VLSM pentru spațiul 17.18.19.0/24}}
+
+==== 10. [M][10p] VLSM ====
+
+  * O firmă are la dispoziție un spațiu de adrese ''/25'' și un ruter cu mai multe interfețe. 
+  * Ruterul distribuie spațiul de adrese în 3 subrețele cu următorul număr de stații: 54, 27, 19. Determinați aceste subrețele pentru următoarele spații de adrese:
+    - ''12.13.14.128/25''
+
+<hidden>
+<solution>
+  * 12.13.14.128/26
+  * 12.13.14.192/27
+  * 12.13.14.224/27
+</solution>
+</hidden>
+
+==== 11. [M][10p] VLSM avansat ====
+
+  * O firmă primește spațiul de adrese 45.67.89.0/24 pe care să îl folosească intern. Firma își definește topologia din imaginea de mai jos.
+
+{{ :rl:labs:03:contents:rl_lab-03_topologie-vlsm-5-retele.png?500 | Topologie VLSM}}
+
+  * Topologia conține 5 rețele:
+    * Rețeaua A: între ruterele R1 și R2 (două adrese)
+    * Rețeaua B: între ruterele R1 și R3 (două adrese)
+    * Rețeaua C: creată în jurul switch-ului Sw1, conectat la ruterul R1, conținând 45 de stații
+    * Rețeaua D: creată în jurul switch-ului Sw2, conectat la ruterul R2, conținând 45 de stații
+    * Rețeaua E: creată în jurul switch-ului Sw3, conectat la ruterul R3, conținând 45 de stații
+
+  * Realizați o distribuție a spațiului de adresă folosind VLSM în cadrul celor cinci rețele.
+  * Precizați care vor fi adresele pentru rutere. În cazul rețelelor C, D, E, alocați ruterului prima adresă din rețea.
+
+<hidden>
+<solution>
+  * C: 45.67.89.0/26
+  * D: 45.67.89.64/26
+  * E: 45.67.89.128/26
+  * A: 45.67.89.192/30
+  * B: 45.67.89.196/30
+</solution>
+</hidden>
